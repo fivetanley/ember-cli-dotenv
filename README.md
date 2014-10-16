@@ -20,7 +20,7 @@ then, you can access the environment variables anywhere in your app like
 you usually would.
 
 ```javascript
-import ENV from “my-app/config/environment”;
+import ENV from "my-app/config/environment";
 
 console.log(ENV.DROPBOX_KEY); // logs YOURKEYGOESHERE
 ```
