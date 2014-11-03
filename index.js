@@ -11,8 +11,6 @@ module.exports = {
     var config = {};
     var allowedKeys = (app.options.dotEnv && app.options.dotEnv.allow) || [];
 
-    console.log('allowedKeys', allowedKeys);
-
     var configFilePath = path.join(project.root, '.env');
 
     if (fs.existsSync(configFilePath)){
