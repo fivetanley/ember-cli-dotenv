@@ -5,13 +5,26 @@ module.exports = {
     var path = require('path');
     var fs = require('fs');
     var dotenv = require('dotenv');
+    var app = this.app;
+    var project = this.project;
+    var loadedConfig;
+    var config = {};
+    var allowedKeys = (app.options.dotEnv && app.options.dotEnv.allow) || [];
 
-    var configFilePath = path.join(this.project.root, '.env');
+    console.log('allowedKeys', allowedKeys);
+
+    var configFilePath = path.join(project.root, '.env');
 
     if (fs.existsSync(configFilePath)){
-      return dotenv.parse(fs.readFileSync(configFilePath));
+      loadedConfig = dotenv.parse(fs.readFileSync(configFilePath));
     } else  {
-      return {};
+      loadedConfig = {};
     }
+
+    allowedKeys.forEach(function(key){
+      config[key] = loadedConfig[key];
+    });
+
+    return config;
   }
 };

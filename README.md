@@ -17,6 +17,21 @@ file in the root of your repository:
 DROPBOX_KEY=YOURKEYGOESHERE
 ```
 
+Next, put some configuration in your Brocfile. Starting in 0.2.0, *keys must be explicitly allowed*:
+
+```javascript
+// Brocfile.js
+
+var app = new EmberApp({
+  dotEnv: {
+    allow: ['DROPBOX_KEY']
+  }
+});
+
+// pre-generated config from ember-cli
+module.exports = app.toTree();
+```
+
 then, you can access the environment variables anywhere in your app like
 you usually would.
 
