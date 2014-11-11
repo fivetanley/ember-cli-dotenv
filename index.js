@@ -32,5 +32,8 @@ module.exports = {
     });
 
     return config;
+  },
+  included: function(app){
+    this.app = app;
   }
 };
