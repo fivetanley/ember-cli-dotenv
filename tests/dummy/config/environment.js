@@ -44,6 +44,7 @@ module.exports = function(environment) {
   }
 
   ENV.DOTENV_VAR = process.env.DOTENV_VAR;
+  ENV.IN_PROCESS_ENV = process.env.IN_PROCESS_ENV;
 
   return ENV;
 };

@@ -9,11 +9,19 @@ module.exports = {
     var project = this.project;
     var loadedConfig;
     var config = {};
-    var allowedKeys = (app.options.dotEnv && app.options.dotEnv.allow) || [];
+    var hasOwn = Object.prototype.hasOwnProperty;
+    if (app.options.dotEnv && hasOwn.call(app.options.dotEnv, 'allow')){
+      console.warn("[EMBER-CLI-DOTENV] app.options.allow has been deprecated. Please use clientAllowedKeys instead. Support will be removed in the next major version");
+    }
+    var allowedKeys = (app.options.dotEnv && (app.options.dotEnv.clientAllowedKeys || app.options.dotEnv.allow) || []);
 
     var configFilePath = path.join(project.root, '.env');
 
     if (fs.existsSync(configFilePath)){
+      // Load all server side keys
+      dotenv._getKeyAndValueFromLine(configFilePath);
+      dotenv._setEnvs();
+      dotenv.load();
       loadedConfig = dotenv.parse(fs.readFileSync(configFilePath));
     } else  {
       loadedConfig = {};

@@ -3,7 +3,7 @@
 
 # Installation
 
-`npm install --save ember-cli-dotenv`
+`npm install --save-dev ember-cli-dotenv`
 
 # What is Ember CLI Dotenv?
 
@@ -17,20 +17,40 @@ file in the root of your repository:
 DROPBOX_KEY=YOURKEYGOESHERE
 ```
 
-Next, put some configuration in your Brocfile. Starting in 0.2.0, *keys must be explicitly allowed*:
+Next, put some configuration in your Brocfile. Starting in 0.2.0, *client side keys must be explicitly allowed*:
 
 ```javascript
 // Brocfile.js
 
 var app = new EmberApp({
   dotEnv: {
-    allow: ['DROPBOX_KEY']
+    clientAllowedKeys: ['DROPBOX_KEY']
   }
 });
 
 // pre-generated config from ember-cli
 module.exports = app.toTree();
 ```
+
+*All keys in `.env` are currently injected into node’s `process.env`.*
+These will be available in your `config/environment.js` file:
+
+```javascript
+// config/environment.js
+module.exports = function(environment){
+  return {
+    MY_OTHER_KEY: process.env.MY_OTHER_KEY
+  }
+};
+```
+
+You can then use the node process environment variables in other ember-cli-addons,
+such as express middleware or other servers/tasks.
+
+**Security: environment variables in `config/environment.js` are never filtered
+unlike using `.env` and `clientAllowedKeys`. Remember to use the `environment`
+variable passed into your config function to filter out secrets for production
+usage.**
 
 then, you can access the environment variables anywhere in your app like
 you usually would.
