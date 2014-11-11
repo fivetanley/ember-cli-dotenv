@@ -1,7 +1,7 @@
 Changelog
 -------------
 
-## 0.2.2
+## 0.3.0
 
 * Deprecate `allow` in config. Use `allowedClientKeys` instead.
 * The node process `process.env` now always gets injected with the environment variables.
