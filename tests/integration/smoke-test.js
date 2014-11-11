@@ -9,3 +9,7 @@ test("should work", function(){
 test("doesn't put in keys unless they are explicitly allowed", function(){
   equal(Object.hasOwnProperty.call(ENV, 'DO_NOT_ALLOW'), false);
 });
+
+test("puts keys in the node process ENV always", function(){
+  equal(ENV.IN_PROCESS_ENV, 'IN_PROCESS_ENV');
+});
