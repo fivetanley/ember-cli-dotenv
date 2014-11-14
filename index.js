@@ -2,6 +2,9 @@
 module.exports = {
   name: 'ember-cli-dotenv',
   config: function(){
+    if (!this.app) {
+      return;
+    }
     var path = require('path');
     var fs = require('fs');
     var dotenv = require('dotenv');
