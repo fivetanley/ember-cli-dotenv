@@ -43,8 +43,11 @@ module.exports = function(environment) {
 
   }
 
-  ENV.DOTENV_VAR = process.env.DOTENV_VAR;
   ENV.IN_PROCESS_ENV = process.env.IN_PROCESS_ENV;
+
+  // use this to determine which environment ember is running in
+  // used for testing.
+  ENV.DOTENV_EMBER_ENV = process.env.EMBER_ENV;
 
   return ENV;
 };

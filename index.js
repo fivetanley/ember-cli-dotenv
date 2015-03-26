@@ -1,7 +1,7 @@
 /* jshint node: true */
 module.exports = {
   name: 'ember-cli-dotenv',
-  config: function(){
+  config: function(environment){
     var path = require('path');
     var fs = require('fs');
     var dotenv = require('dotenv');
@@ -10,15 +10,27 @@ module.exports = {
     var config = {};
     var hasOwn = Object.prototype.hasOwnProperty;
 
-    var configFilePath = path.join(project.root, '.env');
+    var configFilePath,
+        dotEnvPath = this.app && this.app.options.dotEnv && this.app.options.dotEnv.path;
 
-    if (fs.existsSync(configFilePath)){
-      // Load all server side keys
-      dotenv._getKeyAndValueFromLine(configFilePath);
-      dotenv._setEnvs();
-      dotenv.load();
+    if (dotEnvPath) {
+      // path is defined
+      if (typeof dotEnvPath === 'string') {
+        configFilePath = dotEnvPath;
+      } else {
+        if (dotEnvPath[environment]) {
+          configFilePath = dotEnvPath[environment];
+        }
+      }
+    }
+
+    if (!configFilePath) {
+      configFilePath = path.join(project.root, '.env');
+    }
+
+    if (dotenv.config({path: configFilePath})) {
       loadedConfig = dotenv.parse(fs.readFileSync(configFilePath));
-    } else  {
+    } else {
       loadedConfig = {};
     }
 
