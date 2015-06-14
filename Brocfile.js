@@ -4,7 +4,11 @@ var EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 
 var app = new EmberAddon({
   dotEnv: {
-    allow: ['DOTENV_VAR']
+    allow: ['DOTENV_VAR'],
+    // path: './.env.custom',
+    // path: {
+    //   test: './.env.custom'
+    // }
   }
 });
 
