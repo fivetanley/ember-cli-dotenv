@@ -5,6 +5,7 @@ module.exports = {
     var path = require('path');
     var fs = require('fs');
     var dotenv = require('dotenv');
+    var existsSync = require('exists-sync');
     var project = this.project;
     var loadedConfig;
     var config = {};
@@ -28,7 +29,7 @@ module.exports = {
       configFilePath = path.join(project.root, '.env');
     }
 
-    if (dotenv.config({path: configFilePath}) && fs.existsSync(configFilePath)) {
+    if (dotenv.config({path: configFilePath}) && existsSync(configFilePath)) {
       loadedConfig = dotenv.parse(fs.readFileSync(configFilePath));
     } else {
       loadedConfig = {};
