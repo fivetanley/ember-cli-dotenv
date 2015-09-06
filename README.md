@@ -110,6 +110,9 @@ module.exports = app.toTree();
 With the above, if you run `ember build --environment production`, the file
 `.env.production` will be used instead.
 
+## Other Resources
+
+* [Emberscreencasts video on using ember-cli-dotenv](https://www.emberscreencasts.com/posts/52-dotenv)
 
 ## Development Installation
 
