@@ -17,19 +17,20 @@ file in the root of your repository:
 DROPBOX_KEY=YOURKEYGOESHERE
 ```
 
-Next, put some configuration in your Brocfile. Starting in 0.2.0, *client side keys must be explicitly allowed*:
+Next, put some configuration in your `ember-cli-build.js`. Starting in 0.2.0, *client side keys must be explicitly allowed*:
 
 ```javascript
-// Brocfile.js
+// ember-cli-build.js
 
-var app = new EmberApp({
-  dotEnv: {
-    clientAllowedKeys: ['DROPBOX_KEY']
-  }
-});
+module.exports = function(defaults) {
+  var app = new EmberApp(defaults, {
+    dotEnv: {
+      clientAllowedKeys: ['DROPBOX_KEY']
+    }
+  });
 
-// pre-generated config from ember-cli
-module.exports = app.toTree();
+  return app.toTree();
+};
 ```
 
 *All keys in `.env` are currently injected into node’s `process.env`.*
@@ -73,38 +74,40 @@ Sometime people may want to use different `.env` file than the one in project ro
 This can be configured as below:
 
 ```javascript
-// Brocfile.js
+// ember-cli-build.js
 
-var app = new EmberApp({
-  dotEnv: {
-    clientAllowedKeys: ['DROPBOX_KEY'],
-    path: './path/to/.env'
-  }
-});
+module.exports = function(defaults) {
+  var app = new EmberApp(defaults, {
+    dotEnv: {
+      clientAllowedKeys: ['DROPBOX_KEY'],
+      path: './path/to/.env'
+    }
+  });
 
-// pre-generated config from ember-cli
-module.exports = app.toTree();
+  return app.toTree();
+};
 ```
 
 In addition, you may also customize for different environments:
 
 
 ```javascript
-// Brocfile.js
+// ember-cli-build.js
 
-var app = new EmberApp({
-  dotEnv: {
-    clientAllowedKeys: ['DROPBOX_KEY'],
-    path: {
-      development: './path/to/.env',
-      test: './path/to/.env.test',
-      production: './path/to/.env.production'
+module.exports = function(defaults) {
+  var app = new EmberApp(defaults, {
+    dotEnv: {
+      clientAllowedKeys: ['DROPBOX_KEY'],
+      path: {
+        development: './path/to/.env',
+        test: './path/to/.env.test',
+        production: './path/to/.env.production'
+      }
     }
-  }
-});
+  });
 
-// pre-generated config from ember-cli
-module.exports = app.toTree();
+  return app.toTree();
+};
 ```
 
 With the above, if you run `ember build --environment production`, the file
