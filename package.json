@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-dotenv",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "directories": {
     "doc": "doc",
     "test": "tests"
