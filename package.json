@@ -35,6 +35,7 @@
     "configPath": "tests/dummy/config"
   },
   "dependencies": {
-    "dotenv": "^1.0.0"
+    "dotenv": "^1.0.0",
+    "exists-sync": "0.0.3"
   }
 }
