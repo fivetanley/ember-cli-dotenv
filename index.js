@@ -29,7 +29,7 @@ module.exports = {
       configFilePath = path.join(project.root, '.env');
     }
 
-    if (dotenv.config({path: configFilePath}) && existsSync(configFilePath)) {
+    if (existsSync(configFilePath) && dotenv.config({path: configFilePath})) {
       loadedConfig = dotenv.parse(fs.readFileSync(configFilePath));
     } else {
       loadedConfig = {};
