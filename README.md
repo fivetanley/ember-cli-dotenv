@@ -3,7 +3,7 @@
 
 # Installation
 
-`npm install --save-dev ember-cli-dotenv`
+`ember install ember-cli-dotenv`
 
 # What is Ember CLI Dotenv?
 
@@ -113,6 +113,10 @@ module.exports = function(defaults) {
 With the above, if you run `ember build --environment production`, the file
 `.env.production` will be used instead.
 
+## Compatibility
+
+This addon supports the Ember 2.x series, but it is also backwards-compatible down to Ember-CLI 0.1.2 and Ember 1.7.0.
+
 ## Other Resources
 
 * [Emberscreencasts video on using ember-cli-dotenv](https://www.emberscreencasts.com/posts/52-dotenv)
@@ -130,6 +134,7 @@ With the above, if you run `ember build --environment production`, the file
 
 ## Running Tests
 
+* `npm test` (Runs `ember try:testall` to test your addon against multiple Ember versions)
 * `ember test`
 * `ember test --server`
 

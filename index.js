@@ -1,4 +1,6 @@
 /* jshint node: true */
+'use strict';
+
 module.exports = {
   name: 'ember-cli-dotenv',
   config: function(environment){
@@ -52,5 +54,6 @@ module.exports = {
   },
   included: function(app){
     this.app = app;
+    this._super.included.apply(this, arguments);
   }
 };
