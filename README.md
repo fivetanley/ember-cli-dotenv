@@ -51,7 +51,8 @@ such as express middleware or other servers/tasks.
 **Security: environment variables in `config/environment.js` are never filtered
 unlike using `.env` and `clientAllowedKeys`. Remember to use the `environment`
 variable passed into your config function to filter out secrets for production
-usage.**
+usage.  Never include sensitive variables in `clientAllowedKeys`, as these will
+be exposed publicly via ember's `<meta name="app/config/environment">` tag.**
 
 then, you can access the environment variables anywhere in your app like
 you usually would.
