@@ -112,7 +112,7 @@ module.exports = function(defaults) {
 ```
 
 With the above, if you run `ember build --environment production`, the file
-`.env.production` will be used instead.
+`./path/to/.env.production` will be used instead.
 
 ## Compatibility
 
