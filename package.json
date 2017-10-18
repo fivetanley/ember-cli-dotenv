@@ -1,6 +1,6 @@
 {
-  "name": "ember-cli-dotenv",
-  "version": "1.2.0",
+  "name": "@jasonmit/ember-cli-dotenv",
+  "version": "2.0.0",
   "description": "Expose .env variables in Ember applications",
   "directories": {
     "doc": "doc",
@@ -11,14 +11,14 @@
     "start": "ember server",
     "test": "ember try:testall"
   },
-  "repository": "https://github.com/fivetanley/ember-cli-dotenv",
+  "repository": "https://github.com/jasonmit/ember-cli-dotenv",
   "engines": {
     "node": ">= 0.10.0"
   },
   "author": "Stanley Stuart",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/fivetanley/ember-cli-dotenv/issues"
+    "url": "https://github.com/jasonmit/ember-cli-dotenv/issues"
   },
   "devDependencies": {
     "broccoli-asset-rev": "^2.1.2",
