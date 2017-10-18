@@ -1,59 +1,44 @@
 /* jshint node: true */
+
 'use strict';
+
+const fs = require('fs');
+const path = require('path');
+const dotenv = require('dotenv');
+const existsSync = require('exists-sync');
+const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = {
   name: 'ember-cli-dotenv',
-  config: function(environment){
-    var path = require('path');
-    var fs = require('fs');
-    var dotenv = require('dotenv');
-    var existsSync = require('exists-sync');
-    var project = this.project;
-    var loadedConfig;
-    var config = {};
-    var hasOwn = Object.prototype.hasOwnProperty;
 
-    var configFilePath,
-        dotEnvPath = this.app && this.app.options.dotEnv && this.app.options.dotEnv.path;
+  init() {
+    this._super.apply(this, arguments);
 
-    if (dotEnvPath) {
-      // path is defined
-      if (typeof dotEnvPath === 'string') {
-        configFilePath = dotEnvPath;
-      } else {
-        if (dotEnvPath[environment]) {
-          configFilePath = dotEnvPath[environment];
-        }
-      }
+    let project = this.project;
+    let hasOwn = Object.prototype.hasOwnProperty;
+    let configFactory = path.join(project.root, 'dotenv.js');
+    let options = {
+      path: path.join(project.root, '.env'),
+      clientAllowedKeys: []
+    };
+
+    if (existsSync(configFactory)) {
+      Object.assign(options, require(configFactory)(this.env));
     }
 
-    if (!configFilePath) {
-      configFilePath = path.join(project.root, '.env');
-    }
+    if (existsSync(options.path) && dotenv.config({ path: options.path })) {
+      let loadedConfig = dotenv.parse(fs.readFileSync(options.path));
+      let allowedKeys = options.clientAllowedKeys || [];
 
-    if (existsSync(configFilePath) && dotenv.config({path: configFilePath})) {
-      loadedConfig = dotenv.parse(fs.readFileSync(configFilePath));
-    } else {
-      loadedConfig = {};
-    }
+      this._config = allowedKeys.reduce((accumulator, key) => {
+        accumulator[key] = loadedConfig[key];
 
-    var app = this.app;
-    if (!this.app) {
-      return;
+        return accumulator;
+      }, {});
     }
-    if (app.options.dotEnv && hasOwn.call(app.options.dotEnv, 'allow')){
-      console.warn("[EMBER-CLI-DOTENV] app.options.allow has been deprecated. Please use clientAllowedKeys instead. Support will be removed in the next major version");
-    }
-    var allowedKeys = (app.options.dotEnv && (app.options.dotEnv.clientAllowedKeys || app.options.dotEnv.allow) || []);
-
-    allowedKeys.forEach(function(key){
-      config[key] = loadedConfig[key];
-    });
-
-    return config;
   },
-  included: function(app){
-    this.app = app;
-    this._super.included.apply(this, arguments);
+
+  config(env, baseConfig) {
+    return this._config;
   }
 };

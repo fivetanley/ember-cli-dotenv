@@ -17,19 +17,15 @@ file in the root of your repository:
 DROPBOX_KEY=YOURKEYGOESHERE
 ```
 
-Next, put some configuration in your `ember-cli-build.js`. Starting in 0.2.0, *client side keys must be explicitly allowed*:
+Next, put some configuration in your `dotenv.js`. Starting in 0.2.0, *client side keys must be explicitly allowed*:
 
 ```javascript
-// ember-cli-build.js
+// dotenv.js
 
-module.exports = function(defaults) {
-  var app = new EmberApp(defaults, {
-    dotEnv: {
-      clientAllowedKeys: ['DROPBOX_KEY']
-    }
-  });
-
-  return app.toTree();
+module.exports = function(env) {
+  return {
+    clientAllowedKeys: ['DROPBOX_KEY']
+  };
 };
 ```
 
@@ -38,10 +34,10 @@ These will be available in your `config/environment.js` file:
 
 ```javascript
 // config/environment.js
-module.exports = function(environment){
+module.exports = function(environment) {
   return {
     MY_OTHER_KEY: process.env.MY_OTHER_KEY
-  }
+  };
 };
 ```
 
@@ -75,17 +71,13 @@ Sometime people may want to use different `.env` file than the one in project ro
 This can be configured as below:
 
 ```javascript
-// ember-cli-build.js
+// dotenv.js
 
-module.exports = function(defaults) {
-  var app = new EmberApp(defaults, {
-    dotEnv: {
-      clientAllowedKeys: ['DROPBOX_KEY'],
-      path: './path/to/.env'
-    }
-  });
-
-  return app.toTree();
+module.exports = function(env) {
+  return {
+    clientAllowedKeys: ['DROPBOX_KEY'],
+    path: './path/to/.env'
+  };
 };
 ```
 
@@ -93,21 +85,13 @@ In addition, you may also customize for different environments:
 
 
 ```javascript
-// ember-cli-build.js
+// dotenv.js
 
-module.exports = function(defaults) {
-  var app = new EmberApp(defaults, {
-    dotEnv: {
-      clientAllowedKeys: ['DROPBOX_KEY'],
-      path: {
-        development: './path/to/.env',
-        test: './path/to/.env.test',
-        production: './path/to/.env.production'
-      }
-    }
-  });
-
-  return app.toTree();
+module.exports = function(env) {
+  return {
+    clientAllowedKeys: ['DROPBOX_KEY'],
+    path: `./path/to/.env-${env}`
+  };
 };
 ```
 
