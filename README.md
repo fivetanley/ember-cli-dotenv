@@ -3,7 +3,7 @@
 
 # Installation
 
-`ember install ember-cli-dotenv`
+`ember install @jasonmit/ember-cli-dotenv`
 
 # What is Ember CLI Dotenv?
 
