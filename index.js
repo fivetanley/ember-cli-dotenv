@@ -11,6 +11,10 @@ const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 module.exports = {
   name: 'ember-cli-dotenv',
 
+  /**
+   * NOTE: dotenv needs to be invoked before the app config is materialized
+   * so that the process.env's are set appropriately
+   */
   init() {
     this._super.apply(this, arguments);
 
