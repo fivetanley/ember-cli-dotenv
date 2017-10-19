@@ -5,6 +5,13 @@
 
 `ember install @jasonmit/ember-cli-dotenv`
 
+# Upgrading from ember-cli-dotenv to @jasonmit/ember-cli-dotenv
+
+* remove ember-cli-dotenv
+* `ember i @jasonmit/ember-cli-dotenv`
+* open `dotenv.js` and `ember-cli-build.js`
+* move `dotEnv` app options within `ember-cli-build.js` to the function declared within `dotenv.js`
+
 # What is Ember CLI Dotenv?
 
 This addon allows you to write environment variables in a `.env` file and
