@@ -19,11 +19,10 @@ module.exports = {
   init() {
     this._super.apply(this, arguments);
 
-    let project = this.project;
-    let hasOwn = Object.prototype.hasOwnProperty;
-    let configFactory = path.join(project.root, 'dotenv.js');
+    let root = this.project.root;
+    let configFactory = path.join(root, 'dotenv.js');
     let options = {
-      path: path.join(project.root, '.env'),
+      path: path.join(root, '.env'),
       clientAllowedKeys: []
     };
 
