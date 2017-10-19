@@ -1,4 +1,3 @@
-[![Build Status](https://travis-ci.org/fivetanley/ember-cli-dotenv.svg)](https://travis-ci.org/fivetanley/ember-cli-dotenv)
 # Ember CLI Dotenv
 
 # Installation
