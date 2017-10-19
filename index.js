@@ -6,7 +6,6 @@ const fs = require('fs');
 const path = require('path');
 const dotenv = require('dotenv');
 const existsSync = require('exists-sync');
-const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = {
   name: 'ember-cli-dotenv',
