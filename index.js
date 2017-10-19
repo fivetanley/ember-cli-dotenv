@@ -44,7 +44,7 @@ module.exports = {
     }
   },
 
-  config(env, baseConfig) {
+  config() {
     return this._config;
   }
 };
