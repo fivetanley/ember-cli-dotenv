@@ -9,7 +9,7 @@
 * `npm uninstall ember-cli-dotenv`
 * `ember install @jasonmit/ember-cli-dotenv`
 * open `dotenv.js` and `ember-cli-build.js`
-* move `dotEnv` app options within `ember-cli-build.js` to the function declared within `dotenv.js`
+* port the `dotEnv` application options from `ember-cli-build.js` to the function declared within `dotenv.js` see [Multiple Environments](https://github.com/jasonmit/ember-cli-dotenv#multiple-environments)
 
 # What is Ember CLI Dotenv?
 
