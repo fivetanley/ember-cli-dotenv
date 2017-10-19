@@ -28,7 +28,6 @@ Next, configure `dotenv.js`.
 
 ```js
 // dotenv.js
-
 module.exports = function(env) {
   return {
     clientAllowedKeys: ['DROPBOX_KEY']
@@ -79,7 +78,6 @@ This can be configured as below:
 
 ```js
 // dotenv.js
-
 module.exports = function(env) {
   return {
     clientAllowedKeys: ['DROPBOX_KEY'],
@@ -93,7 +91,6 @@ In addition, you may also customize for different environments:
 
 ```js
 // dotenv.js
-
 module.exports = function(env) {
   return {
     clientAllowedKeys: ['DROPBOX_KEY'],
