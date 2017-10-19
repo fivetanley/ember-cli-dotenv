@@ -5,7 +5,7 @@
 
 `ember install @jasonmit/ember-cli-dotenv`
 
-# Upgrading from ember-cli-dotenv to @jasonmit/ember-cli-dotenv
+# Upgrading to @jasonmit/ember-cli-dotenv
 
 * remove ember-cli-dotenv
 * `ember i @jasonmit/ember-cli-dotenv`
