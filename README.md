@@ -7,8 +7,8 @@
 
 # Upgrading to @jasonmit/ember-cli-dotenv@2.0.0
 
-* remove ember-cli-dotenv
-* `ember i @jasonmit/ember-cli-dotenv`
+* `npm uninstall ember-cli-dotenv`
+* `ember install @jasonmit/ember-cli-dotenv`
 * open `dotenv.js` and `ember-cli-build.js`
 * move `dotEnv` app options within `ember-cli-build.js` to the function declared within `dotenv.js`
 
