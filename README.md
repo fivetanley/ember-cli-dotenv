@@ -17,9 +17,9 @@ file in the root of your repository:
 DROPBOX_KEY=YOURKEYGOESHERE
 ```
 
-Next, put some configuration in your `dotenv.js`. Starting in 0.2.0, *client side keys must be explicitly allowed*:
+Next, configure `dotenv.js`.
 
-```javascript
+```js
 // dotenv.js
 
 module.exports = function(env) {
@@ -32,7 +32,7 @@ module.exports = function(env) {
 *All keys in `.env` are currently injected into node’s `process.env`.*
 These will be available in your `config/environment.js` file:
 
-```javascript
+```js
 // config/environment.js
 module.exports = function(environment) {
   return {
@@ -53,7 +53,7 @@ be exposed publicly via ember's `<meta name="app/config/environment">` tag.**
 then, you can access the environment variables anywhere in your app like
 you usually would.
 
-```javascript
+```js
 import ENV from "my-app/config/environment";
 
 console.log(ENV.DROPBOX_KEY); // logs YOURKEYGOESHERE
@@ -70,7 +70,7 @@ ruby implementation.
 Sometime people may want to use different `.env` file than the one in project root.
 This can be configured as below:
 
-```javascript
+```js
 // dotenv.js
 
 module.exports = function(env) {
@@ -84,7 +84,7 @@ module.exports = function(env) {
 In addition, you may also customize for different environments:
 
 
-```javascript
+```js
 // dotenv.js
 
 module.exports = function(env) {
