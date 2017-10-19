@@ -37,7 +37,8 @@
   ],
   "dependencies": {
     "dotenv": "^1.0.0",
-    "exists-sync": "0.0.3"
+    "exists-sync": "0.0.3",
+    "minimist": "^1.2.0"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"

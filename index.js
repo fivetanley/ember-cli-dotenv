@@ -5,6 +5,7 @@
 const fs = require('fs');
 const path = require('path');
 const dotenv = require('dotenv');
+const parseArgs = require('minimist');
 const existsSync = require('exists-sync');
 
 module.exports = {
@@ -17,8 +18,7 @@ module.exports = {
    * and needed to be moved into `init`.
    */
   init() {
-    this._super.apply(this, arguments);
-
+    this._super && this._super.apply(this, arguments);
     let root = this.project.root;
     let configFactory = path.join(root, 'dotenv.js');
     let options = {
@@ -27,7 +27,7 @@ module.exports = {
     };
 
     if (existsSync(configFactory)) {
-      Object.assign(options, require(configFactory)(this.env));
+      Object.assign(options, require(configFactory)(this._resolveEnvironment()));
     }
 
     if (existsSync(options.path) && dotenv.config({ path: options.path })) {
@@ -40,6 +40,17 @@ module.exports = {
         return accumulator;
       }, {});
     }
+  },
+
+  _resolveEnvironment() {
+    if (process.env.EMBER_ENV) {
+      return process.env.EMBER_ENV;
+    }
+
+    let args = parseArgs(process.argv);
+    let env = args.e || args.env || args.environment;
+
+    return env || 'development';
   },
 
   config() {
