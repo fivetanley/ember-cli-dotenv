@@ -13,7 +13,9 @@ module.exports = {
 
   /**
    * NOTE: dotenv needs to be invoked before the app config is materialized
-   * so that the process.env's are set appropriately
+   * so that the process.env's are set appropriately.  Previously this was done
+   * within the `config` hook.  As of 2.15.x, that is too late in the process
+   * and needed to be moved into `init`.
    */
   init() {
     this._super.apply(this, arguments);
