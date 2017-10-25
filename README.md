@@ -1,9 +1,15 @@
-[![Build Status](https://travis-ci.org/fivetanley/ember-cli-dotenv.svg)](https://travis-ci.org/fivetanley/ember-cli-dotenv)
 # Ember CLI Dotenv
 
 # Installation
 
 `ember install ember-cli-dotenv`
+
+# Upgrading to 2.0.0
+
+* `ember install ember-cli-dotenv@^2.0.0`
+* open `dotenv.js` and `ember-cli-build.js`
+* Move/convert the `dotEnv` application options from `ember-cli-build.js` to the function declared within `dotenv.js`
+  * NOTE: if your `path` is dynamic see [Multiple Environments](https://github.com/fivetanley/ember-cli-dotenv#multiple-environments)
 
 # What is Ember CLI Dotenv?
 
@@ -17,31 +23,26 @@ file in the root of your repository:
 DROPBOX_KEY=YOURKEYGOESHERE
 ```
 
-Next, put some configuration in your `ember-cli-build.js`. Starting in 0.2.0, *client side keys must be explicitly allowed*:
+Next, configure `dotenv.js`.
 
-```javascript
-// ember-cli-build.js
-
-module.exports = function(defaults) {
-  var app = new EmberApp(defaults, {
-    dotEnv: {
-      clientAllowedKeys: ['DROPBOX_KEY']
-    }
-  });
-
-  return app.toTree();
+```js
+// dotenv.js
+module.exports = function(env) {
+  return {
+    clientAllowedKeys: ['DROPBOX_KEY']
+  };
 };
 ```
 
 *All keys in `.env` are currently injected into node’s `process.env`.*
 These will be available in your `config/environment.js` file:
 
-```javascript
+```js
 // config/environment.js
-module.exports = function(environment){
+module.exports = function(environment) {
   return {
     MY_OTHER_KEY: process.env.MY_OTHER_KEY
-  }
+  };
 };
 ```
 
@@ -57,7 +58,7 @@ be exposed publicly via ember's `<meta name="app/config/environment">` tag.**
 then, you can access the environment variables anywhere in your app like
 you usually would.
 
-```javascript
+```js
 import ENV from "my-app/config/environment";
 
 console.log(ENV.DROPBOX_KEY); // logs YOURKEYGOESHERE
@@ -74,40 +75,26 @@ ruby implementation.
 Sometime people may want to use different `.env` file than the one in project root.
 This can be configured as below:
 
-```javascript
-// ember-cli-build.js
-
-module.exports = function(defaults) {
-  var app = new EmberApp(defaults, {
-    dotEnv: {
-      clientAllowedKeys: ['DROPBOX_KEY'],
-      path: './path/to/.env'
-    }
-  });
-
-  return app.toTree();
+```js
+// dotenv.js
+module.exports = function(env) {
+  return {
+    clientAllowedKeys: ['DROPBOX_KEY'],
+    path: './path/to/.env'
+  };
 };
 ```
 
 In addition, you may also customize for different environments:
 
 
-```javascript
-// ember-cli-build.js
-
-module.exports = function(defaults) {
-  var app = new EmberApp(defaults, {
-    dotEnv: {
-      clientAllowedKeys: ['DROPBOX_KEY'],
-      path: {
-        development: './path/to/.env',
-        test: './path/to/.env.test',
-        production: './path/to/.env.production'
-      }
-    }
-  });
-
-  return app.toTree();
+```js
+// dotenv.js
+module.exports = function(env) {
+  return {
+    clientAllowedKeys: ['DROPBOX_KEY'],
+    path: `./path/to/.env-${env}`
+  };
 };
 ```
 
