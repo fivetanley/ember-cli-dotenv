@@ -18,7 +18,7 @@ module.exports = {
    * and needed to be moved into `init`.
    */
   init() {
-    this._super && this._super.apply(this, arguments);
+    this._super.init && this._super.init.apply(this, arguments);
     let root = this.project.root;
     let configFactory = path.join(root, 'dotenv.js');
     let options = {
