@@ -1,59 +1,59 @@
 /* jshint node: true */
+
 'use strict';
+
+const fs = require('fs');
+const path = require('path');
+const dotenv = require('dotenv');
+const parseArgs = require('minimist');
+const existsSync = require('exists-sync');
 
 module.exports = {
   name: 'ember-cli-dotenv',
-  config: function(environment){
-    var path = require('path');
-    var fs = require('fs');
-    var dotenv = require('dotenv');
-    var existsSync = require('exists-sync');
-    var project = this.project;
-    var loadedConfig;
-    var config = {};
-    var hasOwn = Object.prototype.hasOwnProperty;
 
-    var configFilePath,
-        dotEnvPath = this.app && this.app.options.dotEnv && this.app.options.dotEnv.path;
+  /**
+   * NOTE: dotenv needs to be invoked before the app config is materialized
+   * so that the process.env's are set appropriately.  Previously this was done
+   * within the `config` hook.  As of 2.15.x, that is too late in the process
+   * and needed to be moved into `init`.
+   */
+  init() {
+    this._super.init && this._super.init.apply(this, arguments);
+    let root = this.project.root;
+    let configFactory = path.join(root, 'dotenv.js');
+    let options = {
+      path: path.join(root, '.env'),
+      clientAllowedKeys: []
+    };
 
-    if (dotEnvPath) {
-      // path is defined
-      if (typeof dotEnvPath === 'string') {
-        configFilePath = dotEnvPath;
-      } else {
-        if (dotEnvPath[environment]) {
-          configFilePath = dotEnvPath[environment];
-        }
-      }
+    if (existsSync(configFactory)) {
+      Object.assign(options, require(configFactory)(this._resolveEnvironment()));
     }
 
-    if (!configFilePath) {
-      configFilePath = path.join(project.root, '.env');
-    }
+    if (existsSync(options.path) && dotenv.config({ path: options.path })) {
+      let loadedConfig = dotenv.parse(fs.readFileSync(options.path));
+      let allowedKeys = options.clientAllowedKeys || [];
 
-    if (existsSync(configFilePath) && dotenv.config({path: configFilePath})) {
-      loadedConfig = dotenv.parse(fs.readFileSync(configFilePath));
-    } else {
-      loadedConfig = {};
-    }
+      this._config = allowedKeys.reduce((accumulator, key) => {
+        accumulator[key] = loadedConfig[key];
 
-    var app = this.app;
-    if (!this.app) {
-      return;
+        return accumulator;
+      }, {});
     }
-    if (app.options.dotEnv && hasOwn.call(app.options.dotEnv, 'allow')){
-      console.warn("[EMBER-CLI-DOTENV] app.options.allow has been deprecated. Please use clientAllowedKeys instead. Support will be removed in the next major version");
-    }
-    var allowedKeys = (app.options.dotEnv && (app.options.dotEnv.clientAllowedKeys || app.options.dotEnv.allow) || []);
-
-    allowedKeys.forEach(function(key){
-      config[key] = loadedConfig[key];
-    });
-
-    return config;
   },
-  included: function(app){
-    this.app = app;
-    this._super.included.apply(this, arguments);
+
+  _resolveEnvironment() {
+    if (process.env.EMBER_ENV) {
+      return process.env.EMBER_ENV;
+    }
+
+    let args = parseArgs(process.argv);
+    let env = args.e || args.env || args.environment;
+
+    return env || 'development';
+  },
+
+  config() {
+    return this._config;
   }
 };

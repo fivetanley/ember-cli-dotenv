@@ -13,7 +13,7 @@
   },
   "repository": "https://github.com/fivetanley/ember-cli-dotenv",
   "engines": {
-    "node": ">= 0.10.0"
+    "node": "^4.5 || 6.* || >= 7.*"
   },
   "author": "Stanley Stuart",
   "license": "MIT",
@@ -37,7 +37,8 @@
   ],
   "dependencies": {
     "dotenv": "^1.0.0",
-    "exists-sync": "0.0.3"
+    "exists-sync": "0.0.3",
+    "minimist": "^1.2.0"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
