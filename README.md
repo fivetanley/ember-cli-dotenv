@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/fivetanley/ember-cli-dotenv.svg?branch=master)](https://travis-ci.org/fivetanley/ember-cli-dotenv)
+[![npm version](https://badge.fury.io/js/ember-cli-dotenv.svg)](https://badge.fury.io/js/ember-cli-dotenv)
+[![Ember Observer Score](https://emberobserver.com/badges/ember-cli-dotenv.svg)](http://emberobserver.com/addons/ember-cli-dotenv)
+
 # Ember CLI Dotenv
 
 # Installation
