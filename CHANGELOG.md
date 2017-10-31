@@ -1,6 +1,42 @@
 Changelog
 -------------
 
+## 2.0.0
+
+* [#35](https://github.com/fivetanley/ember-cli-dotenv/pull/35) Fix broken tests and add more tests with ember-cli-addon-tests addon [@SergeAstapov](https://github.com/SergeAstapov)
+* [#29](https://github.com/fivetanley/ember-cli-dotenv/pull/29) Upgrade Ember CLI and align with default blueprint [@SergeAstapov](https://github.com/SergeAstapov)
+* [#33](https://github.com/fivetanley/ember-cli-dotenv/pull/33) Add support for Ember CLI >= 2.16.0 [@jasonmit](https://github.com/jasonmit)
+* [#31](https://github.com/fivetanley/ember-cli-dotenv/pull/31) README add npm and EmberObserver badges [@SergeAstapov](https://github.com/SergeAstapov)
+* [#21](https://github.com/fivetanley/ember-cli-dotenv/pull/21) README fix .env.production path example [@ibroadfo](https://github.com/ibroadfo)
+
+
+## 1.2.0
+
+* [#20](https://github.com/fivetanley/ember-cli-dotenv/pull/20) README Security clarification [@wkoffel](https://github.com/wkoffel)
+* [#15](https://github.com/fivetanley/ember-cli-dotenv/pull/15) Upgrade Addon via `ember init` command [@elwayman02](https://github.com/elwayman02)
+
+## 1.0.4
+
+* [#16](https://github.com/fivetanley/ember-cli-dotenv/pull/16) Avoid errors if .env does not exist [@dschmidt](https://github.com/dschmidt)
+
+## 1.0.3
+
+* [#13](https://github.com/fivetanley/ember-cli-dotenv/pull/13) README reference ember-cli-build.js instead of Brocfile.js [@matthewlehner](https://github.com/matthewlehner)
+* [#12](https://github.com/fivetanley/ember-cli-dotenv/pull/12) README add learning resource [@jeffreybiles](https://github.com/jeffreybiles)
+* [#11](https://github.com/fivetanley/ember-cli-dotenv/pull/11) remove deprecated existsSync [@jasonmit](https://github.com/jasonmit)
+
+## 1.0.1
+
+* [#10](https://github.com/fivetanley/ember-cli-dotenv/pull/10) Don't attempt to load .env file if it doesn't exist [@opsb](https://github.com/opsb)
+
+## 1.0.0
+
+* [#6](https://github.com/fivetanley/ember-cli-dotenv/pull/6) added support for multiple environments [@gniquil](https://github.com/gniquil)
+
+## 0.4.0
+
+* [#5](https://github.com/fivetanley/ember-cli-dotenv/pull/5) allow process.env to be populated before the ember app loads [@zilkey](https://github.com/zilkey)
+
 ## 0.3.0
 
 * Deprecate `allow` in config. Use `allowedClientKeys` instead.
