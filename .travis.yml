@@ -36,4 +36,4 @@ before_install:
   - npm --version
 
 script:
-  - npm run test
+  - node_modules/.bin/ember try:one $EMBER_TRY_SCENARIO && npm run test:node
