@@ -9,7 +9,7 @@ chai.use(require('chai-fs'));
 const AddonTestApp = require('ember-cli-addon-tests').AddonTestApp;
 
 describe('with default .env path', function() {
-  this.timeout(300000);
+  this.timeout(600000);
 
   let app;
 
@@ -37,7 +37,7 @@ describe('with default .env path', function() {
 });
 
 describe('with custom .env path', function() {
-  this.timeout(300000);
+  this.timeout(600000);
 
   let app;
 
@@ -65,7 +65,7 @@ describe('with custom .env path', function() {
 });
 
 describe('with env specific .env path', function() {
-  this.timeout(300000);
+  this.timeout(600000);
 
   describe('for development environment', function() {
 
