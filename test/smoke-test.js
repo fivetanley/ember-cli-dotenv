@@ -121,6 +121,28 @@ describe('with env specific .env path', function() {
 
   });
 
+  describe('for production environment alias command', function() {
+
+    let app;
+
+    before(function() {
+      app = new AddonTestApp();
+
+      return app.create('env-specific-paths')
+        .then(function() {
+          return app.runEmberCommand('build', '-prod');
+        });
+    });
+
+    it('properly resolves environment name', function () {
+      let config = readConfig(app);
+
+      expect(config.DOTENV_VAR).to.equal('production.dotenv');
+      expect(config.IN_PROCESS_ENV).to.equal('PRODUCTION_IN_PROCESS_ENV');
+    });
+
+  });
+
 });
 
 /**

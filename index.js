@@ -50,6 +50,16 @@ module.exports = {
     let args = parseArgs(process.argv);
     let env = args.e || args.env || args.environment;
 
+    // Is it "ember -prod" command?
+    if (!env && process.argv.includes('-prod')) {
+      env = 'production'
+    }
+
+    // Is it "ember test" command without explicit env specified?
+    if (!env && (process.argv.includes('test') || process.argv.includes('t'))) {
+      env = 'test'
+    }
+
     return env || 'development';
   },
 
