@@ -19,8 +19,9 @@ module.exports = {
    */
   init() {
     this._super.init && this._super.init.apply(this, arguments);
+
     let root = this.project.root;
-    let configFactory = path.join(root, 'dotenv.js');
+    let configFactory = path.join(root, 'config', 'dotenv.js');
     let options = {
       path: path.join(root, '.env'),
       clientAllowedKeys: []

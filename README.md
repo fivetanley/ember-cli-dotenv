@@ -13,8 +13,8 @@ ember install ember-cli-dotenv
 # Upgrading to 2.0.0
 
 * `ember install ember-cli-dotenv@^2.0.0`
-* open `dotenv.js` and `ember-cli-build.js`
-* Move/convert the `dotEnv` application options from `ember-cli-build.js` to the function declared within `dotenv.js`
+* open `config/dotenv.js` and `ember-cli-build.js`
+* Move/convert the `dotEnv` application options from `ember-cli-build.js` to the function declared within `config/dotenv.js`
   * NOTE: if your `path` is dynamic see [Multiple Environments](https://github.com/fivetanley/ember-cli-dotenv#multiple-environments)
 
 # What is Ember CLI Dotenv?
@@ -29,10 +29,10 @@ file in the root of your repository:
 DROPBOX_KEY=YOURKEYGOESHERE
 ```
 
-Next, configure `dotenv.js`.
+Next, configure `config/dotenv.js`.
 
 ```js
-// dotenv.js
+// config/dotenv.js
 module.exports = function(env) {
   return {
     clientAllowedKeys: ['DROPBOX_KEY']
@@ -82,7 +82,7 @@ Sometime people may want to use different `.env` file than the one in project ro
 This can be configured as below:
 
 ```js
-// dotenv.js
+// config/dotenv.js
 module.exports = function(env) {
   return {
     clientAllowedKeys: ['DROPBOX_KEY'],
@@ -95,7 +95,7 @@ In addition, you may also customize for different environments:
 
 
 ```js
-// dotenv.js
+// config/dotenv.js
 module.exports = function(env) {
   return {
     clientAllowedKeys: ['DROPBOX_KEY'],
