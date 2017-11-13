@@ -3,6 +3,8 @@ Changelog
 
 ## 2.0.0
 
+* [#39](https://github.com/fivetanley/ember-cli-dotenv/pull/39) Removed exists-sync pkg, using fs.existsSync instead [@oxodesign](https://github.com/oxodesign)
+* [#37](https://github.com/fivetanley/ember-cli-dotenv/pull/37) Move dotenv.js config file to /config folder [@SergeAstapov](https://github.com/SergeAstapov)
 * [#35](https://github.com/fivetanley/ember-cli-dotenv/pull/35) Fix broken tests and add more tests with ember-cli-addon-tests addon [@SergeAstapov](https://github.com/SergeAstapov)
 * [#29](https://github.com/fivetanley/ember-cli-dotenv/pull/29) Upgrade Ember CLI and align with default blueprint [@SergeAstapov](https://github.com/SergeAstapov)
 * [#33](https://github.com/fivetanley/ember-cli-dotenv/pull/33) Add support for Ember CLI >= 2.16.0 [@jasonmit](https://github.com/jasonmit)
