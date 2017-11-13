@@ -88,11 +88,27 @@ module.exports = {
     }, {});
   },
 
+  /**
+   * Reset values listed in `clientAllowedKeys` to null and
+   * add values from `fastbootAllowedKeys` to FastBoot manifest in package.json.
+   *
+   * Users may list in same keys both in `clientAllowedKeys` and
+   * `fastbootAllowedKeys`
+   *
+   * @returns {Object}
+   */
   fastbootConfigTree() {
     let loadedConfig = this._envConfig || {};
-    let allowedKeys = this._config.fastbootAllowedKeys || [];
+    let clientAllowedKeys = this._config.clientAllowedKeys || [];
+    let fastbootAllowedKeys = this._config.fastbootAllowedKeys || [];
 
-    const config = allowedKeys.reduce((accumulator, key) => {
+    let config = clientAllowedKeys.reduce((accumulator, key) => {
+      accumulator[key] = null;
+
+      return accumulator;
+    }, {});
+
+    config = fastbootAllowedKeys.reduce((accumulator, key) => {
       if (loadedConfig[key] === undefined) {
         let errMsg = '[ember-cli-dotenv]: Required environment variable \'' + key + '\' is missing.';
         if (this._config.failOnMissingKey) {

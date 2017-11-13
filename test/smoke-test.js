@@ -166,10 +166,9 @@ describe('generating app build with FastBoot', function() {
       });
   });
 
-  it('provides additional config added to package.json', function () {
+  it.only('provides additional config added to package.json', function () {
     let pkg = fs.readJsonSync(app.filePath('dist/package.json'));
 
-    expect(pkg.fastboot.config.dummy.DOTENV_VAR).to.be.undefined;
     expect(pkg.fastboot.config.dummy.FASTBOOT_DOTENV_VAR).to.equal('fastboot dotenv');
   });
 
@@ -177,6 +176,12 @@ describe('generating app build with FastBoot', function() {
     let config = readConfig(app);
 
     expect(config.FASTBOOT_DOTENV_VAR).to.be.undefined;
+  });
+
+  it('clientAllowedKeys do not appear in package.json', function () {
+    let pkg = fs.readJsonSync(app.filePath('dist/package.json'));
+
+    expect(pkg.fastboot.config.dummy.DOTENV_VAR).to.be.undefined;
   });
 
 });
