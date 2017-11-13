@@ -26,7 +26,6 @@
   "dependencies": {
     "dotenv": "^4.0.0",
     "ember-cli-babel": "^6.6.0",
-    "exists-sync": "0.0.4",
     "minimist": "^1.2.0"
   },
   "devDependencies": {

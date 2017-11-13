@@ -6,7 +6,6 @@ const fs = require('fs');
 const path = require('path');
 const dotenv = require('dotenv');
 const parseArgs = require('minimist');
-const existsSync = require('exists-sync');
 
 module.exports = {
   name: 'ember-cli-dotenv',
@@ -27,11 +26,11 @@ module.exports = {
       clientAllowedKeys: []
     };
 
-    if (existsSync(configFactory)) {
+    if (fs.existsSync(configFactory)) {
       Object.assign(options, require(configFactory)(this._resolveEnvironment()));
     }
 
-    if (existsSync(options.path) && dotenv.config({ path: options.path })) {
+    if (fs.existsSync(options.path) && dotenv.config({ path: options.path })) {
       let loadedConfig = dotenv.parse(fs.readFileSync(options.path));
       let allowedKeys = options.clientAllowedKeys || [];
 
