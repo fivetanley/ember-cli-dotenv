@@ -1922,9 +1922,9 @@ ember-ajax@^3.0.0:
   dependencies:
     ember-cli-babel "^6.0.0"
 
-ember-cli-addon-tests@^0.10.0:
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/ember-cli-addon-tests/-/ember-cli-addon-tests-0.10.0.tgz#aab150eb1649c32ed77a02617d1adcc1159f7fde"
+ember-cli-addon-tests@^0.11.0:
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/ember-cli-addon-tests/-/ember-cli-addon-tests-0.11.0.tgz#7f5a07ce91317b9b06c792274e6d6a2cc43f1ee9"
   dependencies:
     chalk "^2.0.1"
     debug "^3.0.0"
