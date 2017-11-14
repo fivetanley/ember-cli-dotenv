@@ -2,10 +2,8 @@
 /* global describe before it */
 'use strict';
 
-const chai = require('chai');
-const expect = chai.expect;
-chai.use(require('chai-fs'));
-
+const chai         = require('chai');
+const expect       = chai.expect;
 const AddonTestApp = require('ember-cli-addon-tests').AddonTestApp;
 
 describe('with default .env path', function() {
