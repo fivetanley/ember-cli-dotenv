@@ -32,22 +32,30 @@ module.exports = {
     }
 
     let loadedConfig = dotenv.config({ path: options.path });
-    if (loadedConfig.error && options.failOnMissingKey) {
-      throw new Error('[ember-cli-dotenv]: Error while loading ' + options.path + '.');
-    } else if (loadedConfig.error) {
-      // Nothing to load
-      return;
+
+    // It might happen that environment config is missing or corrupted
+    if (loadedConfig.error) {
+      let loadingErrMsg = `[ember-cli-dotenv]: ${loadedConfig.error.message}`;
+      if (options.failOnMissingKey) {
+        throw new Error(loadingErrMsg);
+      } else {
+        console.warn(loadingErrMsg);
+        return;
+      }
     }
 
     let allowedKeys = options.clientAllowedKeys || [];
 
-    if (options.failOnMissingKey) {
-      allowedKeys.map(key => {
-        if (!loadedConfig.parsed[key]) {
-          throw new Error('[ember-cli-dotenv]: Required environment variable \'' + key + '\' is missing.');
+    allowedKeys.map(key => {
+      if (loadedConfig.parsed[key] === undefined) {
+        let errMsg = '[ember-cli-dotenv]: Required environment variable \'' + key + '\' is missing.';
+        if (options.failOnMissingKey) {
+          throw new Error(errMsg);
+        } else {
+          console.warn(errMsg);
         }
-      });
-    }
+      }
+    });
 
     this._config = allowedKeys.reduce((accumulator, key) => {
       accumulator[key] = loadedConfig.parsed[key];
