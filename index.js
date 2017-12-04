@@ -46,7 +46,7 @@ module.exports = {
 
     let allowedKeys = options.clientAllowedKeys || [];
 
-    allowedKeys.map(key => {
+    allowedKeys.forEach(key => {
       if (loadedConfig.parsed[key] === undefined) {
         let errMsg = '[ember-cli-dotenv]: Required environment variable \'' + key + '\' is missing.';
         if (options.failOnMissingKey) {
