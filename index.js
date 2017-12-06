@@ -23,23 +23,45 @@ module.exports = {
     let configFactory = path.join(root, 'config', 'dotenv.js');
     let options = {
       path: path.join(root, '.env'),
-      clientAllowedKeys: []
+      clientAllowedKeys: [],
+      failOnMissingKey: false,
     };
 
     if (fs.existsSync(configFactory)) {
       Object.assign(options, require(configFactory)(this._resolveEnvironment()));
     }
 
-    if (fs.existsSync(options.path) && dotenv.config({ path: options.path })) {
-      let loadedConfig = dotenv.parse(fs.readFileSync(options.path));
-      let allowedKeys = options.clientAllowedKeys || [];
+    let loadedConfig = dotenv.config({ path: options.path });
 
-      this._config = allowedKeys.reduce((accumulator, key) => {
-        accumulator[key] = loadedConfig[key];
-
-        return accumulator;
-      }, {});
+    // It might happen that environment config is missing or corrupted
+    if (loadedConfig.error) {
+      let loadingErrMsg = `[ember-cli-dotenv]: ${loadedConfig.error.message}`;
+      if (options.failOnMissingKey) {
+        throw new Error(loadingErrMsg);
+      } else {
+        console.warn(loadingErrMsg);
+        return;
+      }
     }
+
+    let allowedKeys = options.clientAllowedKeys || [];
+
+    allowedKeys.forEach(key => {
+      if (loadedConfig.parsed[key] === undefined) {
+        let errMsg = '[ember-cli-dotenv]: Required environment variable \'' + key + '\' is missing.';
+        if (options.failOnMissingKey) {
+          throw new Error(errMsg);
+        } else {
+          console.warn(errMsg);
+        }
+      }
+    });
+
+    this._config = allowedKeys.reduce((accumulator, key) => {
+      accumulator[key] = loadedConfig.parsed[key];
+
+      return accumulator;
+    }, {});
   },
 
   _resolveEnvironment() {
