@@ -166,7 +166,7 @@ describe('generating app build with FastBoot', function() {
       });
   });
 
-  it.only('provides additional config added to package.json', function () {
+  it('provides additional config added to package.json', function () {
     let pkg = fs.readJsonSync(app.filePath('dist/package.json'));
 
     expect(pkg.fastboot.config.dummy.FASTBOOT_DOTENV_VAR).to.equal('fastboot dotenv');
