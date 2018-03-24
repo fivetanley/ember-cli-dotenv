@@ -1,5 +1,4 @@
 /* eslint-env node */
-
 'use strict';
 
 const fs = require('fs');
@@ -28,40 +27,24 @@ module.exports = {
     };
 
     if (fs.existsSync(configFactory)) {
-      Object.assign(options, require(configFactory)(this._resolveEnvironment()));
+      this._config = Object.assign(options, require(configFactory)(this._resolveEnvironment()));
     }
 
-    let loadedConfig = dotenv.config({ path: options.path });
+    let loadedConfig = dotenv.config({path: options.path});
+    this._envConfig = loadedConfig.parsed;
+    this._envConfigError = loadedConfig.error;
+  },
 
+  included() {
     // It might happen that environment config is missing or corrupted
-    if (loadedConfig.error) {
-      let loadingErrMsg = `[ember-cli-dotenv]: ${loadedConfig.error.message}`;
-      if (options.failOnMissingKey) {
+    if (this._envConfigError) {
+      let loadingErrMsg = `[ember-cli-dotenv]: ${this._envConfigError.message}`;
+      if (this._config.failOnMissingKey) {
         throw new Error(loadingErrMsg);
       } else {
-        console.warn(loadingErrMsg);
-        return;
+        this.ui.warn(loadingErrMsg);
       }
     }
-
-    let allowedKeys = options.clientAllowedKeys || [];
-
-    allowedKeys.forEach(key => {
-      if (loadedConfig.parsed[key] === undefined) {
-        let errMsg = '[ember-cli-dotenv]: Required environment variable \'' + key + '\' is missing.';
-        if (options.failOnMissingKey) {
-          throw new Error(errMsg);
-        } else {
-          console.warn(errMsg);
-        }
-      }
-    });
-
-    this._config = allowedKeys.reduce((accumulator, key) => {
-      accumulator[key] = loadedConfig.parsed[key];
-
-      return accumulator;
-    }, {});
   },
 
   _resolveEnvironment() {
@@ -86,6 +69,63 @@ module.exports = {
   },
 
   config() {
-    return this._config;
+    let loadedConfig = this._envConfig || {};
+    let allowedKeys = this._config.clientAllowedKeys || [];
+
+    return allowedKeys.reduce((accumulator, key) => {
+      if (loadedConfig[key] === undefined) {
+        let errMsg = '[ember-cli-dotenv]: Required environment variable \'' + key + '\' is missing.';
+        if (this._config.failOnMissingKey) {
+          throw new Error(errMsg);
+        } else {
+          this.ui.warn(errMsg);
+        }
+      }
+
+      accumulator[key] = loadedConfig[key];
+
+      return accumulator;
+    }, {});
+  },
+
+  /**
+   * Reset values listed in `clientAllowedKeys` to null and
+   * add values from `fastbootAllowedKeys` to FastBoot manifest in package.json.
+   *
+   * Users may list in same keys both in `clientAllowedKeys` and
+   * `fastbootAllowedKeys`
+   *
+   * @returns {Object}
+   */
+  fastbootConfigTree() {
+    let loadedConfig = this._envConfig || {};
+    let clientAllowedKeys = this._config.clientAllowedKeys || [];
+    let fastbootAllowedKeys = this._config.fastbootAllowedKeys || [];
+
+    let config = clientAllowedKeys.reduce((accumulator, key) => {
+      accumulator[key] = null;
+
+      return accumulator;
+    }, {});
+
+    config = fastbootAllowedKeys.reduce((accumulator, key) => {
+      if (loadedConfig[key] === undefined) {
+        let errMsg = '[ember-cli-dotenv]: Required environment variable \'' + key + '\' is missing.';
+        if (this._config.failOnMissingKey) {
+          throw new Error(errMsg);
+        } else {
+          this.ui.warn(errMsg);
+        }
+      }
+
+      accumulator[key] = loadedConfig[key];
+
+      return accumulator;
+    }, {});
+
+    // `fastbootConfigTree` expects key name as app/engine name
+    return {
+      [this.app.name]: config
+    };
   }
 };

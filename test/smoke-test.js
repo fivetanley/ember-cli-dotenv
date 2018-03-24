@@ -4,6 +4,7 @@
 
 const chai         = require('chai');
 const expect       = chai.expect;
+const fs           = require('fs-extra');
 const AddonTestApp = require('ember-cli-addon-tests').AddonTestApp;
 
 describe('with default .env path', function() {
@@ -139,6 +140,48 @@ describe('with env specific .env path', function() {
       expect(config.IN_PROCESS_ENV).to.equal('PRODUCTION_IN_PROCESS_ENV');
     });
 
+  });
+
+});
+
+describe('generating app build with FastBoot', function() {
+  this.timeout(600000);
+
+  let app;
+
+  before(function() {
+    app = new AddonTestApp();
+
+    return app.create('dummy', { skipNpm: true })
+      .then(function(app) {
+        return app.editPackageJSON(pkg => {
+          pkg.devDependencies['ember-cli-fastboot'] = '*';
+        });
+      })
+      .then(function() {
+        return app.run('npm', 'install');
+      })
+      .then(function() {
+        return app.runEmberCommand('build');
+      });
+  });
+
+  it('provides additional config added to package.json', function () {
+    let pkg = fs.readJsonSync(app.filePath('dist/package.json'));
+
+    expect(pkg.fastboot.config.dummy.FASTBOOT_DOTENV_VAR).to.equal('fastboot dotenv');
+  });
+
+  it('fastbootAllowedKeys do not appear in <app name>/config/environment JS module', function () {
+    let config = readConfig(app);
+
+    expect(config.FASTBOOT_DOTENV_VAR).to.be.undefined;
+  });
+
+  it('clientAllowedKeys do not appear in package.json', function () {
+    let pkg = fs.readJsonSync(app.filePath('dist/package.json'));
+
+    expect(pkg.fastboot.config.dummy.DOTENV_VAR).to.be.undefined;
   });
 
 });
