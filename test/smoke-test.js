@@ -189,7 +189,7 @@ describe('generating app build with FastBoot', function() {
  */
 function readConfig (app) {
   let configRegExp = new RegExp(
-    `<meta name="${app.appName}\\/config\\/environment" content="([a-z\\d._\\-%/\\\\]*)" \/>`,
+    `<meta name="${app.appName}\\/config\\/environment" content="([a-z\\d._\\-%/\\\\]*)" \\/>`,
     'gi'
   );
   let contents = require('fs').readFileSync(app.filePath('dist/index.html'), 'utf8');
