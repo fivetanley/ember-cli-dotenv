@@ -39,7 +39,7 @@ module.exports = {
       if (options.failOnMissingKey) {
         throw new Error(loadingErrMsg);
       } else {
-        console.warn(loadingErrMsg);
+        console.warn(loadingErrMsg); // eslint-disable-line no-console
       }
     }
   },
@@ -66,23 +66,9 @@ module.exports = {
   },
 
   config() {
-    let loadedConfig = this._envConfig || {};
     let allowedKeys = this._config.clientAllowedKeys || [];
 
-    return allowedKeys.reduce((accumulator, key) => {
-      if (loadedConfig[key] === undefined) {
-        let errMsg = '[ember-cli-dotenv]: Required environment variable \'' + key + '\' is missing.';
-        if (this._config.failOnMissingKey) {
-          throw new Error(errMsg);
-        } else {
-          this.ui.warn(errMsg);
-        }
-      }
-
-      accumulator[key] = loadedConfig[key];
-
-      return accumulator;
-    }, {});
+    return this._pickConfigKeys(allowedKeys);
   },
 
   /**
@@ -95,11 +81,19 @@ module.exports = {
    * @returns {Object}
    */
   fastbootConfigTree() {
-    let loadedConfig = this._envConfig || {};
-    let fastbootAllowedKeys = this._config.fastbootAllowedKeys || [];
+    let allowedKeys = this._config.fastbootAllowedKeys || [];
 
-    let config = fastbootAllowedKeys.reduce((accumulator, key) => {
-      if (loadedConfig[key] === undefined) {
+    // `fastbootConfigTree` expects key name as app/engine name
+    return {
+      [this.app.name]: this._pickConfigKeys(allowedKeys)
+    };
+  },
+
+  _pickConfigKeys(keys) {
+    let envConfig = this._envConfig || {};
+
+    return keys.reduce((accumulator, key) => {
+      if (envConfig[key] === undefined) {
         let errMsg = '[ember-cli-dotenv]: Required environment variable \'' + key + '\' is missing.';
         if (this._config.failOnMissingKey) {
           throw new Error(errMsg);
@@ -108,14 +102,9 @@ module.exports = {
         }
       }
 
-      accumulator[key] = loadedConfig[key];
+      accumulator[key] = envConfig[key];
 
       return accumulator;
     }, {});
-
-    // `fastbootConfigTree` expects key name as app/engine name
-    return {
-      [this.app.name]: config
-    };
   }
 };
