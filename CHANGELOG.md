@@ -1,6 +1,16 @@
 Changelog
 -------------
 
+## 2.2.0
+
+* [#50](https://github.com/fivetanley/ember-cli-dotenv/pull/50) Add FastBoot support [@SergeAstapov](https://github.com/SergeAstapov)
+
+
+## 2.1.0
+
+* [#45](https://github.com/fivetanley/ember-cli-dotenv/pull/45) Add check for env variables presence [@ondrejsevcik](https://github.com/ondrejsevcik)
+
+
 ## 2.0.0
 
 * [#39](https://github.com/fivetanley/ember-cli-dotenv/pull/39) Removed exists-sync pkg, using fs.existsSync instead [@oxodesign](https://github.com/oxodesign)
