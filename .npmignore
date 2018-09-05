@@ -8,8 +8,8 @@
 .editorconfig
 .ember-cli
 .env
-.gitignore
 .eslintrc.js
+.gitignore
 .watchmanconfig
 .travis.yml
 bower.json
@@ -17,3 +17,8 @@ dotenv.js
 ember-cli-build.js
 testem.js
 yarn.lock
+
+# ember-try
+.node_modules.ember-try/
+bower.json.ember-try
+package.json.ember-try
