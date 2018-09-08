@@ -1,6 +1,11 @@
 Changelog
 -------------
 
+## 2.2.1
+
+* [#53](https://github.com/fivetanley/ember-cli-dotenv/pull/50) Fix build error when outputting the missing key warning message [@sandydoo](https://github.com/sandydoo)
+
+
 ## 2.2.0
 
 * [#50](https://github.com/fivetanley/ember-cli-dotenv/pull/50) Add FastBoot support [@SergeAstapov](https://github.com/SergeAstapov)
