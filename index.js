@@ -97,7 +97,7 @@ module.exports = {
         if (this._config.failOnMissingKey) {
           throw new Error(errMsg);
         } else {
-          this.ui.warn(errMsg);
+          this.ui.writeWarnLine(errMsg);
         }
       }
 
