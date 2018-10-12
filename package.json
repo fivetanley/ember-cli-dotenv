@@ -1,6 +1,6 @@
 {
   "name": "@precision-nutrition/ember-cli-dotenv",
-  "version": "2.2.1",
+  "version": "2.3.0",
   "description": "Expose .env variables in Ember applications",
   "keywords": [
     "ember-addon",
