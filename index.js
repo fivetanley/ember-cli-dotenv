@@ -79,7 +79,7 @@ module.exports = {
   _pickConfigKeys(keys) {
 
     let loadedConfig = this._loadConfig();
-    let envConfig = loadedConfig.parsed;
+    let envConfig = loadedConfig.parsed || {};
 
     return keys.reduce((accumulator, key) => {
       if (envConfig[key] === undefined) {
