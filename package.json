@@ -1,12 +1,12 @@
 {
-  "name": "ember-cli-dotenv",
+  "name": "@precision-nutrition/ember-cli-dotenv",
   "version": "2.2.1",
   "description": "Expose .env variables in Ember applications",
   "keywords": [
     "ember-addon",
     "dotenv"
   ],
-  "repository": "https://github.com/fivetanley/ember-cli-dotenv",
+  "repository": "https://github.com/PrecisionNutrition/ember-cli-dotenv",
   "license": "MIT",
   "author": "Stanley Stuart",
   "directories": {

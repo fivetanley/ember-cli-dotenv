@@ -6,7 +6,7 @@ const dotenv = require('dotenv');
 const parseArgs = require('minimist');
 
 module.exports = {
-  name: 'ember-cli-dotenv',
+  name: require('./package').name,
 
   /**
    * NOTE: dotenv needs to be invoked before the app config is materialized
