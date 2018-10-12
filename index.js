@@ -17,25 +17,13 @@ module.exports = {
   init() {
     this._super.init && this._super.init.apply(this, arguments);
 
-    let root = this.project.root;
-    let configFactory = path.join(root, 'config', 'dotenv.js');
-    let options = {
-      path: path.join(root, '.env'),
-      clientAllowedKeys: [],
-      failOnMissingKey: false,
-    };
-
-    if (fs.existsSync(configFactory)) {
-      this._config = Object.assign(options, require(configFactory)(this._resolveEnvironment()));
-    }
-
-    let loadedConfig = dotenv.config({path: options.path});
+    let loadedConfig = this._loadConfig();
     this._envConfig = loadedConfig.parsed;
 
     // It might happen that environment config is missing or corrupted
     if (loadedConfig.error) {
       let loadingErrMsg = `[ember-cli-dotenv]: ${loadedConfig.error.message}`;
-      if (options.failOnMissingKey) {
+      if (this._config.failOnMissingKey) {
         throw new Error(loadingErrMsg);
       } else {
         console.warn(loadingErrMsg); // eslint-disable-line no-console
@@ -89,7 +77,9 @@ module.exports = {
   },
 
   _pickConfigKeys(keys) {
-    let envConfig = this._envConfig || {};
+
+    let loadedConfig = this._loadConfig();
+    let envConfig = loadedConfig.parsed;
 
     return keys.reduce((accumulator, key) => {
       if (envConfig[key] === undefined) {
@@ -105,5 +95,21 @@ module.exports = {
 
       return accumulator;
     }, {});
-  }
+  },
+
+  _loadConfig() {
+    let root = this.project.root;
+    let configFactory = path.join(root, 'config', 'dotenv.js');
+    let options = {
+      path: path.join(root, '.env'),
+      clientAllowedKeys: [],
+      failOnMissingKey: false,
+    };
+
+    if (fs.existsSync(configFactory)) {
+      this._config = Object.assign(options, require(configFactory)(this._resolveEnvironment()));
+    }
+
+    return dotenv.config({path: options.path});
+  },
 };
