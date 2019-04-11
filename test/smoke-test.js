@@ -15,7 +15,9 @@ describe('with default .env path', function() {
   before(function() {
     app = new AddonTestApp();
 
-    return app.create('dummy')
+    return app.create('dummy', { skipNpm: true })
+      .then(addMissingDependencies)
+      .then(installModules)
       .then(function() {
         return app.runEmberCommand('build');
       });
@@ -43,7 +45,9 @@ describe('with custom .env path', function() {
   before(function() {
     app = new AddonTestApp();
 
-    return app.create('custom-path')
+    return app.create('custom-path', { skipNpm: true })
+      .then(addMissingDependencies)
+      .then(installModules)
       .then(function() {
         return app.runEmberCommand('build');
       });
@@ -73,7 +77,9 @@ describe('with env specific .env path', function() {
     before(function() {
       app = new AddonTestApp();
 
-      return app.create('env-specific-paths')
+      return app.create('env-specific-paths', { skipNpm: true })
+        .then(addMissingDependencies)
+        .then(installModules)
         .then(function() {
           return app.runEmberCommand('build');
         });
@@ -100,7 +106,9 @@ describe('with env specific .env path', function() {
     before(function() {
       app = new AddonTestApp();
 
-      return app.create('env-specific-paths')
+      return app.create('env-specific-paths', { skipNpm: true })
+        .then(addMissingDependencies)
+        .then(installModules)
         .then(function() {
           return app.runEmberCommand('build', '--environment=production');
         });
@@ -127,7 +135,9 @@ describe('with env specific .env path', function() {
     before(function() {
       app = new AddonTestApp();
 
-      return app.create('env-specific-paths')
+      return app.create('env-specific-paths', { skipNpm: true })
+        .then(addMissingDependencies)
+        .then(installModules)
         .then(function() {
           return app.runEmberCommand('build', '-prod');
         });
@@ -154,13 +164,14 @@ describe('generating app build with FastBoot', function() {
 
     return app.create('dummy', { skipNpm: true })
       .then(function(app) {
-        return app.editPackageJSON(pkg => {
+        app.editPackageJSON(pkg => {
           pkg.devDependencies['ember-cli-fastboot'] = '*';
         });
+
+        return app;
       })
-      .then(function() {
-        return app.run('npm', 'install');
-      })
+      .then(addMissingDependencies)
+      .then(installModules)
       .then(function() {
         return app.runEmberCommand('build');
       });
@@ -196,4 +207,28 @@ function readConfig (app) {
 
   let matches = configRegExp.exec(contents);
   return matches && matches[1] && JSON.parse(unescape(matches[1]));
+}
+
+/**
+ * Adds missing dependencies.
+ *
+ * @param {AddonTestApp} app
+ */
+function addMissingDependencies (app) {
+  app.editPackageJSON(function (pkg) {
+    pkg.devDependencies['ember-data'] = '*';
+    pkg.devDependencies['@babel/plugin-transform-block-scoping'] = '*';
+    pkg.devDependencies['@babel/core'] = '*';
+  });
+
+  return app;
+}
+
+/**
+ * Runs script for installing npm modules.
+ *
+ * @param {AddonTestApp} app
+ */
+function installModules (app) {
+  return app.run('npm', 'install');
 }
