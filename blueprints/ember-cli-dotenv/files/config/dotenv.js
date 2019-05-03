@@ -6,7 +6,9 @@ const path = require('path');
 
 module.exports = function(/* env */) {
   return {
-    clientAllowedKeys: ['DROPBOX_KEY'],
+    clientAllowedKeys: [],
+    fastbootAllowedKeys: [],
+    failOnMissingKey: false,
     path: path.join(__dirname, '.env')
   }
-}
+};
