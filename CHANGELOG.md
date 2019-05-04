@@ -1,6 +1,13 @@
 Changelog
 -------------
 
+## 2.2.2
+
+* [#61](https://github.com/fivetanley/ember-cli-dotenv/pull/61) Fix addon installation [@SergeAstapov](https://github.com/SergeAstapov)
+* [#60](https://github.com/fivetanley/ember-cli-dotenv/pull/60) Updated to ember-cli to 3.9.0 [@KalachevDev](https://github.com/KalachevDev)
+* [#58](https://github.com/fivetanley/ember-cli-dotenv/pull/58) dotenv package upgraded to 7.0.0 version [@KalachevDev](https://github.com/KalachevDev)
+
+
 ## 2.2.1
 
 * [#53](https://github.com/fivetanley/ember-cli-dotenv/pull/50) Fix build error when outputting the missing key warning message [@sandydoo](https://github.com/sandydoo)
