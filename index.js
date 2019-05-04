@@ -22,11 +22,14 @@ module.exports = {
     let options = {
       path: path.join(root, '.env'),
       clientAllowedKeys: [],
+      fastbootAllowedKeys: [],
       failOnMissingKey: false,
     };
 
     if (fs.existsSync(configFactory)) {
       this._config = Object.assign(options, require(configFactory)(this._resolveEnvironment()));
+    } else {
+      this._config = options;
     }
 
     let loadedConfig = dotenv.config({path: options.path});
