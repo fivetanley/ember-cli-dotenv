@@ -27,11 +27,9 @@
     "test:ember": "ember try:each"
   },
   "dependencies": {
-    "broccoli-caching-writer": "^3.0.3",
     "dotenv": "^7.0.0",
     "ember-cli-babel": "^7.1.2",
-    "minimist": "^1.2.0",
-    "send": "^0.16.2"
+    "minimist": "^1.2.0"
   },
   "devDependencies": {
     "@ember/optional-features": "^0.6.3",
