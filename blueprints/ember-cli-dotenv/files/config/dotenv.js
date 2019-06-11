@@ -9,6 +9,6 @@ module.exports = function(/* env */) {
     clientAllowedKeys: [],
     fastbootAllowedKeys: [],
     failOnMissingKey: false,
-    path: path.join(__dirname, '.env')
+    path: path.join(path.dirname(__dirname), '.env')
   }
 };
