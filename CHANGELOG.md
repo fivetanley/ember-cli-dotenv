@@ -1,6 +1,16 @@
 Changelog
 -------------
 
+## 3.0.0
+
+* [#66](https://github.com/fivetanley/ember-cli-dotenv/pull/66) Update Default location of .env in config/dotenv.js blueprint [@SergeAstapov](https://github.com/SergeAstapov)
+* [#63](https://github.com/fivetanley/ember-cli-dotenv/pull/63) Upgrade dotenv to version 8.0.0 and drop Node.js 6.x support [@SergeAstapov](https://github.com/SergeAstapov)
+* [#62](https://github.com/fivetanley/ember-cli-dotenv/pull/62) Remove unnecessary dependencies broccoli-caching-writer and send [@SergeAstapov](https://github.com/SergeAstapov)
+
+## 2.2.3
+
+* [#66](https://github.com/fivetanley/ember-cli-dotenv/pull/66) Update Default location of .env in config/dotenv.js blueprint [@SergeAstapov](https://github.com/SergeAstapov)
+
 ## 2.2.2
 
 * [#61](https://github.com/fivetanley/ember-cli-dotenv/pull/61) Fix addon installation [@SergeAstapov](https://github.com/SergeAstapov)
