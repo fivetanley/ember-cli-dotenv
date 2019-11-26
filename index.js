@@ -54,8 +54,8 @@ module.exports = {
     let args = parseArgs(process.argv);
     let env = args.e || args.env || args.environment;
 
-    // Is it "ember b -prod" command?
-    if (!env && process.argv.indexOf('-prod') > -1) {
+    // Is it "ember b -prod" or "ember build --prod" command?
+    if (!env && ((process.argv.indexOf('-prod') > -1) || (process.argv.indexOf('--prod') > -1))) {
       env = 'production'
     }
 
