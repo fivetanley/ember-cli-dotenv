@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-dotenv",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Expose .env variables in Ember applications",
   "keywords": [
     "ember-addon",
