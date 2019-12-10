@@ -4,6 +4,21 @@
 /dist/
 /tmp/
 
+# dev folders
+/test/
+/tests/
+/config/
+
+# dev files
+/testem.js
+/.travis.yml
+/.env
+/.editorconfig
+/.eslintignore
+/.eslintrc.js
+/.template-lintrc.js
+/.ember-cli
+
 # dependencies
 /bower_components/
 /node_modules/
