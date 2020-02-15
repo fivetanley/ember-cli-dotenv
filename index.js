@@ -24,7 +24,7 @@ module.exports = {
       clientAllowedKeys: [],
       fastbootAllowedKeys: [],
       failOnMissingKey: false,
-      useDotenvFile: true
+      enabled: true
     };
 
     if (fs.existsSync(configFactory)) {
@@ -33,7 +33,7 @@ module.exports = {
       this._config = options;
     }
 
-    if (this._config.useDotenvFile) {
+    if (this._config.enabled) {
       let loadedConfig = dotenv.config({path: options.path});
       this._envConfig = loadedConfig.parsed;
 
@@ -71,7 +71,7 @@ module.exports = {
   },
 
   config() {
-    if (this._config.useDotenvFile) {
+    if (this._config.enabled) {
       let allowedKeys = this._config.clientAllowedKeys || [];
 
       return this._pickConfigKeys(allowedKeys);

@@ -144,12 +144,12 @@ This can be configured as below:
 // config/dotenv.js
 module.exports = function(env) {
   return {
-    useDotenvFile: env !== 'production' // default is TRUE for any environment
+    enabled: env !== 'production' // default is TRUE for any environment
   };
 };
 ```
 
-When `useDotenvFile` is set to `false`, the dotenv protocol will not be used at all.
+When `enabled` is set to `false`, the dotenv protocol will not be used at all.
 This is great for quieting errors and side issues when deploying with a service like Heroku,
  where you can use environment variables set within the service and avoid storing a .env file in your repo.
 
