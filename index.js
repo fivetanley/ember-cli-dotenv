@@ -24,6 +24,7 @@ module.exports = {
       clientAllowedKeys: [],
       fastbootAllowedKeys: [],
       failOnMissingKey: false,
+      enabled: true
     };
 
     if (fs.existsSync(configFactory)) {
@@ -32,16 +33,18 @@ module.exports = {
       this._config = options;
     }
 
-    let loadedConfig = dotenv.config({path: options.path});
-    this._envConfig = loadedConfig.parsed;
+    if (this._config.enabled) {
+      let loadedConfig = dotenv.config({path: options.path});
+      this._envConfig = loadedConfig.parsed;
 
-    // It might happen that environment config is missing or corrupted
-    if (loadedConfig.error) {
-      let loadingErrMsg = `[ember-cli-dotenv]: ${loadedConfig.error.message}`;
-      if (options.failOnMissingKey) {
-        throw new Error(loadingErrMsg);
-      } else {
-        console.warn(loadingErrMsg); // eslint-disable-line no-console
+      // It might happen that environment config is missing or corrupted
+      if (loadedConfig.error) {
+        let loadingErrMsg = `[ember-cli-dotenv]: ${loadedConfig.error.message}`;
+        if (options.failOnMissingKey) {
+          throw new Error(loadingErrMsg);
+        } else {
+          console.warn(loadingErrMsg); // eslint-disable-line no-console
+        }
       }
     }
   },
@@ -68,9 +71,13 @@ module.exports = {
   },
 
   config() {
-    let allowedKeys = this._config.clientAllowedKeys || [];
+    if (this._config.enabled) {
+      let allowedKeys = this._config.clientAllowedKeys || [];
 
-    return this._pickConfigKeys(allowedKeys);
+      return this._pickConfigKeys(allowedKeys);
+    }
+
+    return {};
   },
 
   /**

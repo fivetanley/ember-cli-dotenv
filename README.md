@@ -38,7 +38,7 @@ module.exports = function(env) {
     clientAllowedKeys: ['DROPBOX_KEY'],
     // Fail build when there is missing any of clientAllowedKeys environment variables.
     // By default false.
-    failOnMissingKey: false, 
+    failOnMissingKey: false
   };
 };
 ```
@@ -106,7 +106,7 @@ when it runs in browser.
 
 ### Multiple Environments
 
-Sometime people may want to use different `.env` file than the one in project root.
+Sometimes people may want to use different `.env` file than the one in project root.
 This can be configured as below:
 
 ```js
@@ -134,6 +134,24 @@ module.exports = function(env) {
 
 With the above, if you run `ember build --environment production`, the file
 `./path/to/.env-production` will be used instead.
+
+### Environment Specific Use
+
+Sometimes people may want to only initiate the dotenv file in one or more environments (e.g. not in production)
+This can be configured as below:
+
+```js
+// config/dotenv.js
+module.exports = function(env) {
+  return {
+    enabled: env !== 'production' // default is TRUE for any environment
+  };
+};
+```
+
+When `enabled` is set to `false`, the dotenv protocol will not be used at all.
+This is great for quieting errors and side issues when deploying with a service like Heroku,
+ where you can use environment variables set within the service and avoid storing a .env file in your repo.
 
 ## Compatibility
 
