@@ -28,7 +28,7 @@
     "test:ember": "ember try:each"
   },
   "dependencies": {
-    "dotenv": "^8.0.0",
+    "dotenv": "^16.0.0",
     "ember-cli-babel": "^7.23.0",
     "minimist": "^1.2.0"
   },
@@ -62,7 +62,7 @@
     "qunit-dom": "^1.6.0"
   },
   "engines": {
-    "node": "6.* || 8.* || >= 10.*"
+    "node": ">=12"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
