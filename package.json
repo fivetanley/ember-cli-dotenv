@@ -62,7 +62,7 @@
     "qunit-dom": "^1.6.0"
   },
   "engines": {
-    "node": "6.* || 8.* || >= 10.*"
+    "node": "18.* || >= 20"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
