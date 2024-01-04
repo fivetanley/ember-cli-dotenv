@@ -23,6 +23,56 @@ ember install ember-cli-dotenv
 * Move/convert the `dotEnv` application options from `ember-cli-build.js` to the function declared within `config/dotenv.js`
   * NOTE: if your `path` is dynamic see [Multiple Environments](https://github.com/fivetanley/ember-cli-dotenv#multiple-environments)
 
+## Embroider Compatibility
+
+This was addon was designed to work with classic Ember CLI build pipeline and
+approach used here simply does not work under Embroider.
+
+For Ember apps using Embroider, it's recommended to use [`@embroider/macros`][macros]
+to pass Node.js environment variable(s) to Ember code. In `ember-cli-build.js`, do:
+
+```javascript
+require('dotenv').config();
+
+let app = new EmberApp(defaults, {
+  '@embroider/macros': {
+    // this is how you configure your own package
+    setOwnConfig: {
+      DROPBOX_KEY: process.env.DROPBOX_KEY
+    },
+    // this is how you can optionally send configuration into your
+    // dependencies, if those dependencies choose to use
+    // @embroider/macros configs.
+    setConfig: {
+      'some-dependency': {
+        DROPBOX_KEY: process.env.DROPBOX_KEY
+      },
+    },
+  },
+});
+```
+
+In case if you need to consume env variable(s) only in FastBoot mode
+and ensure they don't get transferred to browser in `config/fastboot.js`, do:
+
+```javascript
+require('dotenv').config();
+
+module.exports = function(environment) {
+  const myGlobal = {
+    DROPBOX_KEY: process.env.DROPBOX_KEY,
+  };
+
+  return {
+    buildSandboxGlobals(defaultGlobals) {
+      return Object.assign({}, defaultGlobals, {
+        myGlobal,
+      });
+    },
+  };
+}
+```
+
 ## What is Ember CLI Dotenv?
 
 This addon allows you to write environment variables in a `.env` file and
@@ -180,3 +230,4 @@ See the [Contributing](CONTRIBUTING.md) guide for details.
 This project is licensed under the [MIT License](LICENSE.md).
 
 [dotenv]: https://github.com/motdotla/dotenv
+[macros]: https://www.npmjs.com/package/@embroider/macros
