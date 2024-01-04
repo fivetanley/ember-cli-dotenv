@@ -1,6 +1,14 @@
 Changelog
 -------------
 
+## 3.1.0
+
+* [#84](https://github.com/fivetanley/ember-cli-dotenv/pull/84) Add ability to shut off dotenv invocation [@gfmartinez](https://github.com/gfmartinez)
+
+## 3.0.1
+
+* [#68](https://github.com/fivetanley/ember-cli-dotenv/pull/68) Checking also for "ember build --prod" command [@davideferre](https://github.com/davideferre)
+
 ## 3.0.0
 
 * [#66](https://github.com/fivetanley/ember-cli-dotenv/pull/66) Update Default location of .env in config/dotenv.js blueprint [@SergeAstapov](https://github.com/SergeAstapov)
