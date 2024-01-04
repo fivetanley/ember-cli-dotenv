@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "@babel/core": "^7.23.6",
-    "dotenv": "^8.0.0",
+    "dotenv": ">=8.0.0",
     "ember-cli-babel": "^8.2.0",
     "minimist": "^1.2.0"
   },
