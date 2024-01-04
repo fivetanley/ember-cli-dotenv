@@ -1,6 +1,20 @@
 Changelog
 -------------
 
+## 4.0.0
+
+#### :boom: Breaking Change
+* [#117](https://github.com/fivetanley/ember-cli-dotenv/pull/117) Drop support for Node.js 16 and below ([@SergeAstapov](https://github.com/SergeAstapov))
+
+#### :rocket: Enhancement
+* [#119](https://github.com/fivetanley/ember-cli-dotenv/pull/119) Widen dotenv package versions support to allow past v8 ([@SergeAstapov](https://github.com/SergeAstapov))
+
+#### :memo: Documentation
+* [#121](https://github.com/fivetanley/ember-cli-dotenv/pull/121) Add Embroider compatibility note and recommendations ([@SergeAstapov](https://github.com/SergeAstapov))
+
+#### :house: Internal
+* [#118](https://github.com/fivetanley/ember-cli-dotenv/pull/118) run `npx ember-cli-update --to=5.5.0` to align with blueprint ([@SergeAstapov](https://github.com/SergeAstapov))
+
 ## 3.1.0
 
 * [#84](https://github.com/fivetanley/ember-cli-dotenv/pull/84) Add ability to shut off dotenv invocation [@gfmartinez](https://github.com/gfmartinez)
