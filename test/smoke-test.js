@@ -2,23 +2,24 @@
 /* global describe before it */
 'use strict';
 
-const chai         = require('chai');
-const expect       = chai.expect;
-const fs           = require('fs-extra');
+const chai = require('chai');
+const expect = chai.expect;
+const fs = require('fs-extra');
 const AddonTestApp = require('ember-cli-addon-tests').AddonTestApp;
 
-describe('with default .env path', function() {
+describe('with default .env path', function () {
   this.timeout(600000);
 
   let app;
 
-  before(function() {
+  before(function () {
     app = new AddonTestApp();
 
-    return app.create('dummy', { skipNpm: true })
+    return app
+      .create('dummy', { skipNpm: true })
       .then(addMissingDependencies)
       .then(installModules)
-      .then(function() {
+      .then(function () {
         return app.runEmberCommand('build');
       });
   });
@@ -34,21 +35,21 @@ describe('with default .env path', function() {
 
     expect(config.IN_PROCESS_ENV).to.equal('IN_PROCESS_ENV');
   });
-
 });
 
-describe('with custom .env path', function() {
+describe('with custom .env path', function () {
   this.timeout(600000);
 
   let app;
 
-  before(function() {
+  before(function () {
     app = new AddonTestApp();
 
-    return app.create('custom-path', { skipNpm: true })
+    return app
+      .create('custom-path', { skipNpm: true })
       .then(addMissingDependencies)
       .then(installModules)
-      .then(function() {
+      .then(function () {
         return app.runEmberCommand('build');
       });
   });
@@ -64,23 +65,22 @@ describe('with custom .env path', function() {
 
     expect(config.IN_PROCESS_ENV).to.equal('CUSTOM_IN_PROCESS_ENV');
   });
-
 });
 
-describe('with env specific .env path', function() {
+describe('with env specific .env path', function () {
   this.timeout(600000);
 
-  describe('for development environment', function() {
-
+  describe('for development environment', function () {
     let app;
 
-    before(function() {
+    before(function () {
       app = new AddonTestApp();
 
-      return app.create('env-specific-paths', { skipNpm: true })
+      return app
+        .create('env-specific-paths', { skipNpm: true })
         .then(addMissingDependencies)
         .then(installModules)
-        .then(function() {
+        .then(function () {
           return app.runEmberCommand('build');
         });
     });
@@ -96,20 +96,19 @@ describe('with env specific .env path', function() {
 
       expect(config.IN_PROCESS_ENV).to.equal('DEVELOPMENT_IN_PROCESS_ENV');
     });
-
   });
 
-  describe('for production environment', function() {
-
+  describe('for production environment', function () {
     let app;
 
-    before(function() {
+    before(function () {
       app = new AddonTestApp();
 
-      return app.create('env-specific-paths', { skipNpm: true })
+      return app
+        .create('env-specific-paths', { skipNpm: true })
         .then(addMissingDependencies)
         .then(installModules)
-        .then(function() {
+        .then(function () {
           return app.runEmberCommand('build', '--environment=production');
         });
     });
@@ -125,20 +124,19 @@ describe('with env specific .env path', function() {
 
       expect(config.IN_PROCESS_ENV).to.equal('PRODUCTION_IN_PROCESS_ENV');
     });
-
   });
 
-  describe('for production environment alias command', function() {
-
+  describe('for production environment alias command', function () {
     let app;
 
-    before(function() {
+    before(function () {
       app = new AddonTestApp();
 
-      return app.create('env-specific-paths', { skipNpm: true })
+      return app
+        .create('env-specific-paths', { skipNpm: true })
         .then(addMissingDependencies)
         .then(installModules)
-        .then(function() {
+        .then(function () {
           return app.runEmberCommand('build', '-prod');
         });
     });
@@ -149,22 +147,21 @@ describe('with env specific .env path', function() {
       expect(config.DOTENV_VAR).to.equal('production.dotenv');
       expect(config.IN_PROCESS_ENV).to.equal('PRODUCTION_IN_PROCESS_ENV');
     });
-
   });
-
 });
 
-describe('generating app build with FastBoot', function() {
+describe('generating app build with FastBoot', function () {
   this.timeout(600000);
 
   let app;
 
-  before(function() {
+  before(function () {
     app = new AddonTestApp();
 
-    return app.create('dummy', { skipNpm: true })
-      .then(function(app) {
-        app.editPackageJSON(pkg => {
+    return app
+      .create('dummy', { skipNpm: true })
+      .then(function (app) {
+        app.editPackageJSON((pkg) => {
           pkg.devDependencies['ember-cli-fastboot'] = '*';
         });
 
@@ -172,7 +169,7 @@ describe('generating app build with FastBoot', function() {
       })
       .then(addMissingDependencies)
       .then(installModules)
-      .then(function() {
+      .then(function () {
         return app.runEmberCommand('build');
       });
   });
@@ -181,7 +178,9 @@ describe('generating app build with FastBoot', function() {
     let pkg = fs.readJsonSync(app.filePath('dist/package.json'));
 
     expect(pkg.fastboot.config.dummy.DOTENV_VAR).to.equal('dotenv');
-    expect(pkg.fastboot.config.dummy.FASTBOOT_DOTENV_VAR).to.equal('fastboot dotenv');
+    expect(pkg.fastboot.config.dummy.FASTBOOT_DOTENV_VAR).to.equal(
+      'fastboot dotenv',
+    );
   });
 
   it('fastbootAllowedKeys do not appear in <app name>/config/environment JS module', function () {
@@ -189,7 +188,6 @@ describe('generating app build with FastBoot', function() {
 
     expect(config.FASTBOOT_DOTENV_VAR).to.be.undefined;
   });
-
 });
 
 /**
@@ -198,12 +196,15 @@ describe('generating app build with FastBoot', function() {
  * @param {AddonTestApp} app
  * @return {Object}
  */
-function readConfig (app) {
+function readConfig(app) {
   let configRegExp = new RegExp(
     `<meta name="${app.appName}\\/config\\/environment" content="([a-z\\d._\\-%/\\\\]*)" \\/>`,
-    'gi'
+    'gi',
   );
-  let contents = require('fs').readFileSync(app.filePath('dist/index.html'), 'utf8');
+  let contents = require('fs').readFileSync(
+    app.filePath('dist/index.html'),
+    'utf8',
+  );
 
   let matches = configRegExp.exec(contents);
   return matches && matches[1] && JSON.parse(unescape(matches[1]));
@@ -214,7 +215,7 @@ function readConfig (app) {
  *
  * @param {AddonTestApp} app
  */
-function addMissingDependencies (app) {
+function addMissingDependencies(app) {
   app.editPackageJSON(function (pkg) {
     pkg.devDependencies['ember-data'] = '*';
     pkg.devDependencies['@babel/plugin-transform-block-scoping'] = '*';
@@ -229,6 +230,6 @@ function addMissingDependencies (app) {
  *
  * @param {AddonTestApp} app
  */
-function installModules (app) {
+function installModules(app) {
   return app.run('npm', 'install');
 }

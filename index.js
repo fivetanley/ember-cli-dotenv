@@ -24,17 +24,20 @@ module.exports = {
       clientAllowedKeys: [],
       fastbootAllowedKeys: [],
       failOnMissingKey: false,
-      enabled: true
+      enabled: true,
     };
 
     if (fs.existsSync(configFactory)) {
-      this._config = Object.assign(options, require(configFactory)(this._resolveEnvironment()));
+      this._config = Object.assign(
+        options,
+        require(configFactory)(this._resolveEnvironment()),
+      );
     } else {
       this._config = options;
     }
 
     if (this._config.enabled) {
-      let loadedConfig = dotenv.config({path: options.path});
+      let loadedConfig = dotenv.config({ path: options.path });
       this._envConfig = loadedConfig.parsed;
 
       // It might happen that environment config is missing or corrupted
@@ -58,13 +61,20 @@ module.exports = {
     let env = args.e || args.env || args.environment;
 
     // Is it "ember b -prod" or "ember build --prod" command?
-    if (!env && ((process.argv.indexOf('-prod') > -1) || (process.argv.indexOf('--prod') > -1))) {
-      env = 'production'
+    if (
+      !env &&
+      (process.argv.indexOf('-prod') > -1 ||
+        process.argv.indexOf('--prod') > -1)
+    ) {
+      env = 'production';
     }
 
     // Is it "ember test" or "ember t" command without explicit env specified?
-    if (!env && (process.argv.indexOf('test') > -1 || process.argv.indexOf('t') > -1)) {
-      env = 'test'
+    if (
+      !env &&
+      (process.argv.indexOf('test') > -1 || process.argv.indexOf('t') > -1)
+    ) {
+      env = 'test';
     }
 
     return env || 'development';
@@ -94,7 +104,7 @@ module.exports = {
 
     // `fastbootConfigTree` expects key name as app/engine name
     return {
-      [this.app.name]: this._pickConfigKeys(allowedKeys)
+      [this.app.name]: this._pickConfigKeys(allowedKeys),
     };
   },
 
@@ -103,7 +113,10 @@ module.exports = {
 
     return keys.reduce((accumulator, key) => {
       if (envConfig[key] === undefined) {
-        let errMsg = '[ember-cli-dotenv]: Required environment variable \'' + key + '\' is missing.';
+        let errMsg =
+          "[ember-cli-dotenv]: Required environment variable '" +
+          key +
+          "' is missing.";
         if (this._config.failOnMissingKey) {
           throw new Error(errMsg);
         } else {
@@ -115,5 +128,5 @@ module.exports = {
 
       return accumulator;
     }, {});
-  }
+  },
 };

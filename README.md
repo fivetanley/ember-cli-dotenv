@@ -2,22 +2,28 @@
 [![npm version](https://badge.fury.io/js/ember-cli-dotenv.svg)](https://badge.fury.io/js/ember-cli-dotenv)
 [![Ember Observer Score](https://emberobserver.com/badges/ember-cli-dotenv.svg)](http://emberobserver.com/addons/ember-cli-dotenv)
 
-# Ember CLI Dotenv
+# ember-cli-dotenv
 
-# Installation
+## Compatibility
+
+* Ember.js v4.8 or above
+* Ember CLI v4.8 or above
+* Node.js v18 or above
+
+## Installation
 
 ```bash
 ember install ember-cli-dotenv
 ```
 
-# Upgrading to 2.0.0
+## Upgrading to 2.0.0
 
 * `ember install ember-cli-dotenv@^2.0.0`
 * open `config/dotenv.js` and `ember-cli-build.js`
 * Move/convert the `dotEnv` application options from `ember-cli-build.js` to the function declared within `config/dotenv.js`
   * NOTE: if your `path` is dynamic see [Multiple Environments](https://github.com/fivetanley/ember-cli-dotenv#multiple-environments)
 
-# What is Ember CLI Dotenv?
+## What is Ember CLI Dotenv?
 
 This addon allows you to write environment variables in a `.env` file and
 expose them to your Ember app through the built-in `config/environment.js`
@@ -165,43 +171,12 @@ and [ember-cli-fastboot](https://github.com/ember-fastboot/ember-cli-fastboot) 1
 * [Emberscreencasts video on using ember-cli-dotenv](https://www.emberscreencasts.com/posts/52-dotenv)
 
 
-Contributing
-------------------------------------------------------------------------------
+## Contributing
 
-### Installation
+See the [Contributing](CONTRIBUTING.md) guide for details.
 
-* `git clone https://github.com/fivetanley/ember-cli-dotenv.git`
-* `cd ember-cli-dotenv`
-* `npm install`
-
-### Linting
-
-* `npm run lint:js`
-* `npm run lint:js -- --fix`
-
-
-### Running tests
-
-* `ember test` – Runs the test suite on the current Ember version
-* `ember test --server` – Runs the test suite in "watch mode"
-* `npm test:ember` – Runs the test suite against multiple Ember versions
-* `npm test:node` - Runs the test suite in `test` folder created with `ember-cli-addon-tests`
-
-### Running the dummy application
-
-* `ember serve`
-* Visit the dummy application at [http://localhost:4200](http://localhost:4200).
-
-For more information on using ember-cli, visit [https://ember-cli.com/](https://ember-cli.com/).
-
-
-Links
-------------------------------------------------------------------------------
-
-[dotenv]: https://github.com/motdotla/dotenv
-
-
-License
-------------------------------------------------------------------------------
+## License
 
 This project is licensed under the [MIT License](LICENSE.md).
+
+[dotenv]: https://github.com/motdotla/dotenv
